@@ -1,0 +1,12 @@
+server:
+  port: 8081
+  servletPath: /
+
+spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:hsqldb:mem:scratchdb
