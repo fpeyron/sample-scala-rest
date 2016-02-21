@@ -1,7 +1,8 @@
 package fr.sysf.sample.domain
 
 import java.lang.Long
-import javax.persistence.{Entity, GeneratedValue, Id}
+import java.util.{Calendar, Date}
+import javax.persistence._
 
 import org.hibernate.validator.constraints.NotEmpty
 
@@ -16,6 +17,16 @@ class Hotel {
   var id: Long = _
 
   @BeanProperty
+  @Column(insertable = true, updatable = false)
+  @Temporal(TemporalType.TIMESTAMP)
+  var creatingDate: Date = _
+
+  @BeanProperty
+  @Version
+  @Temporal(TemporalType.TIMESTAMP)
+  var updatingDate: Date = _
+
+  @BeanProperty
   @NotEmpty
   var name: String = _
 
@@ -26,4 +37,16 @@ class Hotel {
   @BeanProperty
   @NotEmpty
   var zip: String = _
+
+  @PrePersist
+  def onCreate {
+    creatingDate = Calendar.getInstance().getTime;
+  }
+
+  /*
+    @PreUpdate
+    def onUpdate {
+      updatingDate = Calendar.getInstance().getTime;
+    }
+  */
 }
